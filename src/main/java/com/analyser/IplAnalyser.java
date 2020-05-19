@@ -87,4 +87,10 @@ public class IplAnalyser {
         Comparator<IplRunsWktsDAO> highestRunComparator =Comparator.comparing(census -> census.runs);
         return sort(highestRunComparator);
     }
+
+    public String loadBolingAverageOfPlayerIplWktsData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.average);
+        return sort(BolingAvgComparator);
+    }
+
 }

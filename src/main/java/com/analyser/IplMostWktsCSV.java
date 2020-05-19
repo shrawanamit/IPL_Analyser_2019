@@ -6,11 +6,11 @@ public class IplMostWktsCSV {
     @CsvBindByName(column = "PLAYER", required = true)
     public String player;
 
-    @CsvBindByName(column = "Mat", required = true)
-    public int match;
+    @CsvBindByName(column = "SR", required = true)
+    public float strikeRate;
 
-    @CsvBindByName(column = "Inns", required = true)
-    public int inning;
+    @CsvBindByName(column = "Econ", required = true)
+    public float economicsRate;
 
     @CsvBindByName(column = "Avg", required = true)
     public float average;
@@ -22,8 +22,8 @@ public class IplMostWktsCSV {
     public String toString() {
         return "IplMostWktsCSV{" +
                 "player='" + player + '\'' +
-                ", match=" + match +
-                ", inning=" + inning +
+                ", match=" + strikeRate +
+                ", inning=" + economicsRate+
                 ", average=" + average +
                 ", Runs=" + runs +
                 '}';
