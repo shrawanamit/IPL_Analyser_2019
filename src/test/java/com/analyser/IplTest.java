@@ -132,6 +132,21 @@ public class IplTest {
         }
     }
 
+    @Test
+    public void givenIplMostWktsCSV_whenSortedBestEconomy_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplFactsSheetMostWiktsData(IPL_2019_MOST_Wkts_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadBesteconomyRateOfPlayerFromIplWktsData();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("Ben Cutting", iplBatsManData[98].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

@@ -97,4 +97,9 @@ public class IplAnalyser {
         Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.strikeRate);
         return sort(BolingAvgComparator);
     }
+
+    public String loadBesteconomyRateOfPlayerFromIplWktsData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.economicsRate);
+        return sort(BolingAvgComparator);
+    }
 }
