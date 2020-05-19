@@ -51,4 +51,15 @@ public class IplAnalyser {
         Comparator<IplRunsDAO> strikeRateComparator =Comparator.comparing(census -> census.strikeRate);
         return sort(strikeRateComparator);
     }
+
+    public String loadMaxSixInIpl() throws IplAnalyserException {
+        Comparator<IplRunsDAO> maxNoOfSixComparator =Comparator.comparing(census -> census.noOfSix);
+        return sort(maxNoOfSixComparator);
+
+    }
+
+    public String loadBatingStrikeRateFour() throws IplAnalyserException {
+        Comparator<IplRunsDAO> maxNoOfFourComparator =Comparator.comparing(census -> census.noOfFour);
+        return sort(maxNoOfFourComparator);
+    }
 }

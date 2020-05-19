@@ -36,10 +36,39 @@ public class IplTest {
             iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadSortedOnStrikeRate();
             IplMostRunsCSV[] IplDataCSV = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            Assert.assertEquals(4.0, IplDataCSV[0].average,0.001);
+            Assert.assertEquals(4.0, IplDataCSV[0].strikeRate,0.001);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenIplMostRunCSV_whenSortedOnMaxSix_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadMaxSixInIpl();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("Andre Russell", iplBatsManData[100].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIplMostRunCSV_whenSortedOnBatingStrikeRateFour_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadBatingStrikeRateFour();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("Shikhar Dhawan", iplBatsManData[100].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
