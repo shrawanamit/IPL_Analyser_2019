@@ -1,6 +1,6 @@
 package com.analyser;
 
-public class IplRunsDAO {
+public class IplRunsWktsDAO {
     public String player;
     public int match;
     public int highestStrike;
@@ -11,7 +11,7 @@ public class IplRunsDAO {
     public int noOfFour;
 
 
-    public IplRunsDAO(IplMostRunsCSV iplMostRunsCSV) {
+    public IplRunsWktsDAO(IplMostRunsCSV iplMostRunsCSV) {
          player = iplMostRunsCSV.player;
          runs = iplMostRunsCSV.runs;
          highestStrike = iplMostRunsCSV.highestStrike;
@@ -20,7 +20,7 @@ public class IplRunsDAO {
          noOfSix=iplMostRunsCSV.noOfSix;
          noOfFour=iplMostRunsCSV.noOfFour;
     }
-    public IplRunsDAO(IplMostWktsCSV iplMostWktsCSV) {
+    public IplRunsWktsDAO(IplMostWktsCSV iplMostWktsCSV) {
         player = iplMostWktsCSV.player;
         match = iplMostWktsCSV.match;
         //inning = iplMostWktsCSV.inning;
