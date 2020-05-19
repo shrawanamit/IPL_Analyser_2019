@@ -36,7 +36,7 @@ public class IplTest {
             iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadSortedOnStrikeRate();
             IplMostRunsCSV[] IplDataCSV = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            Assert.assertEquals(4.0, IplDataCSV[0].strikeRate,0.001);
+            Assert.assertEquals(63.150001525878906, IplDataCSV[0].strikeRate,0.001);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }
@@ -78,6 +78,20 @@ public class IplTest {
             String sortedResult = iplAnalyser.loadBestStrickRate();
             IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
             Assert.assertEquals("Jonny Bairstow", iplBatsManData[100].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void givenIplMostRunCSV_whenSortedOnHighestRun_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadHighestRun();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("David Warner", iplBatsManData[100].player);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }
