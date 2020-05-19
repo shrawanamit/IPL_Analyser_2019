@@ -46,4 +46,9 @@ public class IplAnalyser {
             String sortedAverageRunsDataInJson = new Gson().toJson(sortedAvgRunsData);
             return sortedAverageRunsDataInJson;
     }
+
+    public String loadSortedOnStrikeRate() throws IplAnalyserException {
+        Comparator<IplRunsDAO> strikeRateComparator =Comparator.comparing(census -> census.strikeRate);
+        return sort(strikeRateComparator);
+    }
 }
