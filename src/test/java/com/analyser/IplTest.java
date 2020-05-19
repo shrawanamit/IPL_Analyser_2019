@@ -154,7 +154,20 @@ public class IplTest {
             iplAnalyser.loadIplFactsSheetMostWiktsData(IPL_2019_MOST_Wkts_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadBestStrikingRate4W5WOfPlayerFromIplWktsData();
             IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            Assert.assertEquals("Ben Cutting", iplBatsManData[98].player);
+            Assert.assertEquals("Lasith Malinga", iplBatsManData[98].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIplMostWktsCSV_whenSortedOnHighestWikets_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplFactsSheetMostWiktsData(IPL_2019_MOST_Wkts_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadHighestWiketsOfPlayerFromIplWktsData();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("Imran Tahir", iplBatsManData[98].player);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }

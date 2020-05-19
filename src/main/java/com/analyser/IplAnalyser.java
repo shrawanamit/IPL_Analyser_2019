@@ -104,7 +104,12 @@ public class IplAnalyser {
     }
 
     public String loadBestStrikingRate4W5WOfPlayerFromIplWktsData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> strikngRate4WComparator =Comparator.comparing(census -> census.economicsRate);
+        Comparator<IplRunsWktsDAO> strikngRate4WComparator =Comparator.comparing(census -> census.fourWikets);
+        return sort(strikngRate4WComparator);
+    }
+
+    public String loadHighestWiketsOfPlayerFromIplWktsData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> strikngRate4WComparator =Comparator.comparing(census -> census.wikets);
         return sort(strikngRate4WComparator);
     }
 }
