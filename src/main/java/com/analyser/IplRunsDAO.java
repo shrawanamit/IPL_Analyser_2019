@@ -3,7 +3,7 @@ package com.analyser;
 public class IplRunsDAO {
     public String player;
     public int match;
-    public int inning;
+    public int highestStrike;
     public float average;
     public int runs;
     public float strikeRate;
@@ -13,8 +13,8 @@ public class IplRunsDAO {
 
     public IplRunsDAO(IplMostRunsCSV iplMostRunsCSV) {
          player = iplMostRunsCSV.player;
-         match = iplMostRunsCSV.match;
-         inning = iplMostRunsCSV.inning;
+         runs = iplMostRunsCSV.runs;
+         highestStrike = iplMostRunsCSV.highestStrike;
          average =iplMostRunsCSV. average;
          strikeRate=iplMostRunsCSV.strikeRate;
          noOfSix=iplMostRunsCSV.noOfSix;
@@ -23,7 +23,7 @@ public class IplRunsDAO {
     public IplRunsDAO(IplMostWktsCSV iplMostWktsCSV) {
         player = iplMostWktsCSV.player;
         match = iplMostWktsCSV.match;
-        inning = iplMostWktsCSV.inning;
+        //inning = iplMostWktsCSV.inning;
         average =iplMostWktsCSV. average;
         runs = iplMostWktsCSV.runs;
 

@@ -69,6 +69,19 @@ public class IplTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenIplMostRunCSV_whenSortedOnBestStrickRate_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplMostRunData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadBestStrickRate();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
+            Assert.assertEquals("Jonny Bairstow", iplBatsManData[100].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 }

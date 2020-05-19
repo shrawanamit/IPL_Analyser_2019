@@ -62,4 +62,9 @@ public class IplAnalyser {
         Comparator<IplRunsDAO> maxNoOfFourComparator =Comparator.comparing(census -> census.noOfFour);
         return sort(maxNoOfFourComparator);
     }
+
+    public String loadBestStrickRate() throws IplAnalyserException {
+        Comparator<IplRunsDAO> bestStrickRateComparator =Comparator.comparing(census -> census.highestStrike);
+        return sort(bestStrickRateComparator);
+    }
 }
