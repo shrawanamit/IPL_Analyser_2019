@@ -89,17 +89,22 @@ public class IplAnalyser {
     }
 
     public String loadBolingAverageOfPlayerIplWktsData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.average);
-        return sort(BolingAvgComparator);
+        Comparator<IplRunsWktsDAO> bolingAvgComparator =Comparator.comparing(census -> census.average);
+        return sort(bolingAvgComparator);
     }
 
     public String loadBestStrikeRateOfPlayerFromIplWktsData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.strikeRate);
-        return sort(BolingAvgComparator);
+        Comparator<IplRunsWktsDAO> strikerRateComparator =Comparator.comparing(census -> census.strikeRate);
+        return sort(strikerRateComparator);
     }
 
     public String loadBesteconomyRateOfPlayerFromIplWktsData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> BolingAvgComparator =Comparator.comparing(census -> census.economicsRate);
-        return sort(BolingAvgComparator);
+        Comparator<IplRunsWktsDAO> economyRateComparator =Comparator.comparing(census -> census.economicsRate);
+        return sort(economyRateComparator);
+    }
+
+    public String loadBestStrikingRate4W5WOfPlayerFromIplWktsData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> strikngRate4WComparator =Comparator.comparing(census -> census.economicsRate);
+        return sort(strikngRate4WComparator);
     }
 }

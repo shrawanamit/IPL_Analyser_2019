@@ -18,14 +18,22 @@ public class IplMostWktsCSV {
     @CsvBindByName(column = "Runs", required = true)
     public int runs;
 
+    @CsvBindByName(column = "Wkts", required = true)
+    public int wikets;
+
+    @CsvBindByName(column = "4w", required = true)
+    public int fourWikets;
+
     @Override
     public String toString() {
         return "IplMostWktsCSV{" +
                 "player='" + player + '\'' +
-                ", match=" + strikeRate +
-                ", inning=" + economicsRate+
+                ", strikeRate=" + strikeRate +
+                ", economicsRate=" + economicsRate +
                 ", average=" + average +
-                ", Runs=" + runs +
+                ", runs=" + runs +
+                ", wikets=" + wikets +
+                ", fourWikets=" + fourWikets +
                 '}';
     }
 }
