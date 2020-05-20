@@ -10,41 +10,43 @@ import java.util.stream.Collectors;
 
 public class IplAnalyser {
 
-    List<IplRunsWktsDAO> iplRunsList;
+    List<IplRunsWktsDAO> iplRunsWiktsList;
     public IplAnalyser() {
-        this.iplRunsList = new ArrayList<>();
+        this.iplRunsWiktsList = new ArrayList<>();
     }
 
     public int loadIplFactsSheetMostRunsData(String csvFilePath) throws IplAnalyserException{
-
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IplMostRunsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplMostRunsCSV.class);
-            while (csvFileIterator.hasNext()) {
-                this.iplRunsList.add(new IplRunsWktsDAO(csvFileIterator.next()));
-            }
-            return this.iplRunsList.size();
-        } catch (IOException | CSVBuilderException e) {
-            throw new IplAnalyserException(e.getMessage(), IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
-        }
+        return this.loadIPLData(csvFilePath,IplMostRunsCSV.class);
     }
-
 
     public int loadIplFactsSheetMostWiktsData(String csvFilePath) throws IplAnalyserException{
+        return this.loadIPLData(csvFilePath,IplMostWktsCSV.class);
+    }
+
+    private <E> int loadIPLData(String csvFilePath,Class<E> IPLCSVClass) throws IplAnalyserException{
 
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            Iterator<IplMostWktsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader, IplMostWktsCSV.class);
-            while (csvFileIterator.hasNext()) {
-                this.iplRunsList.add(new IplRunsWktsDAO(csvFileIterator.next()));
+            if (IPLCSVClass.getName().equals("com.analysr.IplMostRunsCSV")) {
+                Iterator<IplMostRunsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostRunsCSV.class);
+                while (csvFileIterator.hasNext()) {
+                    this.iplRunsWiktsList.add(new IplRunsWktsDAO( csvFileIterator.next()));
+                }
+            } else if (IPLCSVClass.getName().equals("com.analyser.IplMostWktsCSV")) {
+                Iterator<IplMostWktsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostWktsCSV.class);
+                while (csvFileIterator.hasNext()) {
+                    this.iplRunsWiktsList.add(new IplRunsWktsDAO(csvFileIterator.next()));
+                }
             }
-            return this.iplRunsList.size();
+            return iplRunsWiktsList.size();
         } catch (IOException | CSVBuilderException e) {
             throw new IplAnalyserException(e.getMessage(), IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
         }
+
     }
 
-    public String loadSortedOnBattingAverage() throws IplAnalyserException {
+
+        public String loadSortedOnBattingAverage() throws IplAnalyserException {
 
         Comparator<IplRunsWktsDAO> averageComparator =Comparator.comparing(census -> census.average);
         return sort(averageComparator);
@@ -52,9 +54,9 @@ public class IplAnalyser {
 
     private String sort(Comparator<IplRunsWktsDAO> averageComparator) throws IplAnalyserException {
 
-        if(iplRunsList == null || iplRunsList.size() ==0 ) {
+        if(iplRunsWiktsList == null || iplRunsWiktsList.size() ==0 ) {
             throw new IplAnalyserException("no runs data",IplAnalyserException.ExceptionType.NO_IPL_DATA);
-        }List sortedAvgRunsData =iplRunsList
+        }List sortedAvgRunsData = iplRunsWiktsList
                                     .stream()
                                     .sorted(averageComparator)
                                     .collect(Collectors.toList());
