@@ -14,7 +14,7 @@ public class IPlLoader {
     public <E> List<IplRunsWktsDAO> loadIPLData(String csvFilePath, Class<E> IPLCSVClass) throws IplAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            if (IPLCSVClass.getName().equals("com.analysr.IplMostRunsCSV")) {
+            if (IPLCSVClass.getName().equals("com.analyser.IplMostRunsCSV")) {
                 Iterator<IplMostRunsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostRunsCSV.class);
                 while (csvFileIterator.hasNext()) {
                     this.iplLoaderList.add(new IplRunsWktsDAO( csvFileIterator.next()));

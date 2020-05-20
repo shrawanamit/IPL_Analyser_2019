@@ -8,6 +8,7 @@ public class IplTest {
     private static final String IPL_2019_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_2019_MOST_Wkts_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IPL2019FactsheetMostRuns.csv";
+    String  highestRunsWiktsPlayer="";
     @Test
     public void givenIplFactsSheetsMostRunssCSV_whenAnalyse_shouldReturnCorrectNoOfRecords() throws IplAnalyserException {
         IplAnalyser iplAnalyser = new IplAnalyser();
@@ -153,8 +154,8 @@ public class IplTest {
             IplAnalyser iplAnalyser = new IplAnalyser();
             iplAnalyser.loadIplFactsSheetMostWiktsData(IPL_2019_MOST_Wkts_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadBestStrikingRate4W5WOfPlayerFromIplWktsData();
-            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            Assert.assertEquals("Lasith Malinga", iplBatsManData[98].player);
+            IplMostWktsCSV[] iplBowlerData = new Gson().fromJson( sortedResult , IplMostWktsCSV[].class);
+            Assert.assertEquals("Lasith Malinga", iplBowlerData[98].player);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }
@@ -166,8 +167,23 @@ public class IplTest {
             IplAnalyser iplAnalyser = new IplAnalyser();
             iplAnalyser.loadIplFactsSheetMostWiktsData(IPL_2019_MOST_Wkts_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadHighestWiketsOfPlayerFromIplWktsData();
+            IplMostWktsCSV[] iplBowlerData = new Gson().fromJson( sortedResult , IplMostWktsCSV[].class);
+            highestRunsWiktsPlayer=iplBowlerData[98].player;
+            Assert.assertEquals("Imran Tahir", iplBowlerData[98].player);
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIplMostRunCSV_whenSortedOnHighestRunAndHighestWkts_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplFactsSheetMostRunsData(IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadHighestRun();
             IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            Assert.assertEquals("Imran Tahir", iplBatsManData[98].player);
+            highestRunsWiktsPlayer= highestRunsWiktsPlayer.concat(iplBatsManData[100].player);
+            Assert.assertEquals("David WarnerImran Tahir",  highestRunsWiktsPlayer);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }

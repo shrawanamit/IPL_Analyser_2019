@@ -1,10 +1,6 @@
 package com.analyser;
 
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -91,5 +87,11 @@ public class IplAnalyser {
     public String loadHighestWiketsOfPlayerFromIplWktsData() throws IplAnalyserException {
         Comparator<IplRunsWktsDAO> strikngRate4WComparator =Comparator.comparing(census -> census.wikets);
         return sort(strikngRate4WComparator);
+    }
+
+    public String loadBestRunAndBestWiktsOfPlayerFromIplData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> bestRunsComparator =Comparator.comparing(census -> census.runs);
+        return sort(bestRunsComparator);
+
     }
 }
