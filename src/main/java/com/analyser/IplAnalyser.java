@@ -16,38 +16,16 @@ public class IplAnalyser {
     }
 
     public int loadIplFactsSheetMostRunsData(String csvFilePath) throws IplAnalyserException{
-        return this.loadIPLData(csvFilePath,IplMostRunsCSV.class);
+        iplRunsWiktsList=new IPlLoader().loadIPLData(csvFilePath,IplMostRunsCSV.class);
+        return iplRunsWiktsList.size();
     }
 
     public int loadIplFactsSheetMostWiktsData(String csvFilePath) throws IplAnalyserException{
-        return this.loadIPLData(csvFilePath,IplMostWktsCSV.class);
+        iplRunsWiktsList=new IPlLoader().loadIPLData(csvFilePath,IplMostWktsCSV.class);
+        return iplRunsWiktsList.size();
     }
 
-    private <E> int loadIPLData(String csvFilePath,Class<E> IPLCSVClass) throws IplAnalyserException{
-
-        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
-            if (IPLCSVClass.getName().equals("com.analysr.IplMostRunsCSV")) {
-                Iterator<IplMostRunsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostRunsCSV.class);
-                while (csvFileIterator.hasNext()) {
-                    this.iplRunsWiktsList.add(new IplRunsWktsDAO( csvFileIterator.next()));
-                }
-            } else if (IPLCSVClass.getName().equals("com.analyser.IplMostWktsCSV")) {
-                Iterator<IplMostWktsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostWktsCSV.class);
-                while (csvFileIterator.hasNext()) {
-                    this.iplRunsWiktsList.add(new IplRunsWktsDAO(csvFileIterator.next()));
-                }
-            }
-            return iplRunsWiktsList.size();
-        } catch (IOException | CSVBuilderException e) {
-            throw new IplAnalyserException(e.getMessage(), IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
-        }
-
-    }
-
-
-        public String loadSortedOnBattingAverage() throws IplAnalyserException {
-
+    public String loadSortedOnBattingAverage() throws IplAnalyserException {
         Comparator<IplRunsWktsDAO> averageComparator =Comparator.comparing(census -> census.average);
         return sort(averageComparator);
     }
