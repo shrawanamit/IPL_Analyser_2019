@@ -6,20 +6,18 @@ import java.util.stream.Collectors;
 
 public class IplAnalyser {
 
+    public enum IPL{RUNS,WICKET};
+
     List<IplRunsWktsDAO> iplRunsWiktsList;
     public IplAnalyser() {
         this.iplRunsWiktsList = new ArrayList<>();
     }
 
-    public int loadIplFactsSheetMostRunsData(String csvFilePath) throws IplAnalyserException{
-        iplRunsWiktsList=new IPlLoader().loadIPLData(csvFilePath,IplMostRunsCSV.class);
+    public int loadIplFactsSheetData(IPL ipl , String csvFilePath) throws IplAnalyserException{
+        iplRunsWiktsList=new IPlLoader().loadIPLData(ipl,csvFilePath);
         return iplRunsWiktsList.size();
     }
 
-    public int loadIplFactsSheetMostWiktsData(String csvFilePath) throws IplAnalyserException{
-        iplRunsWiktsList=new IPlLoader().loadIPLData(csvFilePath,IplMostWktsCSV.class);
-        return iplRunsWiktsList.size();
-    }
 
     public String loadSortedOnBattingAverage() throws IplAnalyserException {
         Comparator<IplRunsWktsDAO> averageComparator =Comparator.comparing(census -> census.average);

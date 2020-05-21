@@ -9,9 +9,20 @@ import java.util.List;
 
 public class IPlLoader {
 
-    private List iplLoaderList=new ArrayList();
+    private List iplLoaderList = new ArrayList();
 
-    public <E> List<IplRunsWktsDAO> loadIPLData(String csvFilePath, Class<E> IPLCSVClass) throws IplAnalyserException {
+    public List<IplRunsWktsDAO> loadIPLData(IplAnalyser.IPL ipl, String csvFilePath) throws IplAnalyserException {
+        if(ipl.equals(IplAnalyser.IPL.RUNS)) {
+            return this.loadIPLData(csvFilePath, IplMostRunsCSV.class);
+        }else if(ipl.equals(IplAnalyser.IPL.WICKET)) {
+            return this.loadIPLData(csvFilePath, IplMostWktsCSV.class);
+        }else{
+            throw new IplAnalyserException("Incorect Input",IplAnalyserException.ExceptionType.INVALID_INPUT);
+        }
+    }
+
+    private  <E> List<IplRunsWktsDAO> loadIPLData(String csvFilePath, Class<E> IPLCSVClass) throws IplAnalyserException {
+
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             if (IPLCSVClass.getName().equals("com.analyser.IplMostRunsCSV")) {
@@ -30,4 +41,6 @@ public class IPlLoader {
             throw new IplAnalyserException(e.getMessage(), IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
         }
     }
+
+
 }
