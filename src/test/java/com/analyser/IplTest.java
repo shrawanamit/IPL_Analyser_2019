@@ -1,16 +1,20 @@
 package com.analyser;
+import com.censusanalyser.CensusAnalyser;
+import com.censusanalyser.CensusAnalyserException;
 import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 
 public class IplTest {
     private static final String IPL_2019_MOST_RUN_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostRuns.csv";
     private static final String IPL_2019_MOST_Wkts_CSV_FILE_PATH = "./src/test/resources/IPL2019FactsheetMostWkts.csv";
     private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IPL2019FactsheetMostRuns.csv";
-    String  highestRunsWiktsPlayer="";
+
     @Test
     public void givenIplFactsSheetsMostRunssCSV_whenAnalyse_shouldReturnCorrectNoOfRecords() throws IplAnalyserException {
+
         IplAnalyser iplAnalyser = new IplAnalyser();
         int noOfRecord = iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.RUNS,IPL_2019_MOST_RUN_CSV_FILE_PATH);
         Assert.assertEquals(101, noOfRecord);
@@ -18,10 +22,23 @@ public class IplTest {
     }
     @Test
     public void givenIplFactsSheetsMostWktsCSV_whenAnalyse_shouldReturnCorrectNoOfRecords() throws IplAnalyserException {
+
         IplAnalyser iplAnalyser = new IplAnalyser();
         int noOfRecord = iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.WICKET,IPL_2019_MOST_Wkts_CSV_FILE_PATH);
         Assert.assertEquals(99, noOfRecord);
 
+    }
+    @Test
+    public void givenIPLData_WhenCorrect_butPathIncorrectShouldThrowCustomException() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(IplAnalyserException.class);
+            iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.RUNS,WRONG_CSV_FILE_PATH);
+        } catch (IplAnalyserException e) {
+            Assert.assertEquals(IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM, e.type);
+        }
     }
     @Test
     public void givenIplMostRunCSV_whenSortedOnBattingAverage_shouldReturnShortedResult() {
