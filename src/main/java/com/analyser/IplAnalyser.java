@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 public class IplAnalyser {
 
+
+
     public enum IPL{RUNS,WICKET};
 
     List<IplRunsWktsDAO> iplRunsWiktsList;
@@ -87,9 +89,17 @@ public class IplAnalyser {
         return sort(strikngRate4WComparator);
     }
 
-    public String loadBestRunAndBestWiktsOfPlayerFromIplData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> bestRunsComparator =Comparator.comparing(census -> census.runs);
+    public String loadBestAvgAndWkts() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> bestRunsComparator =Comparator.comparing(census -> census.average);
         return sort(bestRunsComparator);
 
+    }
+    public String loadBestAvgWkts() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> bestAvgBowlerComparator =Comparator.comparing(census -> census.average);
+        return sort(bestAvgBowlerComparator);
+    }
+    public String loadBestRuns() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> bestAvgBowlerComparator =Comparator.comparing(census -> census.runs);
+        return sort(bestAvgBowlerComparator);
     }
 }

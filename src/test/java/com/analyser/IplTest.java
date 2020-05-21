@@ -168,7 +168,6 @@ public class IplTest {
             iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.WICKET,IPL_2019_MOST_Wkts_CSV_FILE_PATH);
             String sortedResult = iplAnalyser.loadHighestWiketsOfPlayerFromIplWktsData();
             IplMostWktsCSV[] iplBowlerData = new Gson().fromJson( sortedResult , IplMostWktsCSV[].class);
-            highestRunsWiktsPlayer=iplBowlerData[98].player;
             Assert.assertEquals("Imran Tahir", iplBowlerData[98].player);
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
@@ -180,10 +179,36 @@ public class IplTest {
         try {
             IplAnalyser iplAnalyser = new IplAnalyser();
             iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.RUNS,IPL_2019_MOST_RUN_CSV_FILE_PATH);
-            String sortedResult = iplAnalyser.loadHighestRun();
-            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResult , IplMostRunsCSV[].class);
-            highestRunsWiktsPlayer= highestRunsWiktsPlayer.concat(iplBatsManData[100].player);
-            Assert.assertEquals("David WarnerImran Tahir",highestRunsWiktsPlayer);
+            String sortedResultRun = iplAnalyser.loadBestRuns();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResultRun , IplMostRunsCSV[].class);
+            String s = iplBatsManData[100].player;
+            iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.WICKET,IPL_2019_MOST_Wkts_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadHighestWiketsOfPlayerFromIplWktsData();
+            IplMostWktsCSV[] iplBatsManDataW = new Gson().fromJson( sortedResult , IplMostWktsCSV[].class);
+            String s1=iplBatsManDataW[98].player;
+            s=s.concat(s1);
+            Assert.assertEquals("David Warner"+"Imran Tahir",s);
+
+        } catch ( IplAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenIplSheetCSV_whenSortedOnBestAvgAndWkts_shouldReturnShortedResult() {
+
+        try {
+            IplAnalyser iplAnalyser = new IplAnalyser();
+            iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.RUNS,IPL_2019_MOST_RUN_CSV_FILE_PATH);
+            String sortedResultRun = iplAnalyser.loadBestAvgAndWkts();
+            IplMostRunsCSV[] iplBatsManData = new Gson().fromJson( sortedResultRun , IplMostRunsCSV[].class);
+            String s = iplBatsManData[100].player;
+            iplAnalyser.loadIplFactsSheetData(IplAnalyser.IPL.WICKET,IPL_2019_MOST_Wkts_CSV_FILE_PATH);
+            String sortedResult = iplAnalyser.loadBestAvgWkts();
+            IplMostWktsCSV[] iplBatsManDataW = new Gson().fromJson( sortedResult , IplMostWktsCSV[].class);
+            String s1=iplBatsManDataW[98].player;
+            s=s.concat(s1);
+            Assert.assertEquals("MS Dhoni"+"Krishnappa Gowtham",s);
+
         } catch ( IplAnalyserException e) {
             e.printStackTrace();
         }
