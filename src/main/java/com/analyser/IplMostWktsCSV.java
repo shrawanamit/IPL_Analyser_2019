@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName;
 //POS,PLAYER,Mat,Inns,Ov,Runs,Wkts,BBI,Avg,Econ,SR,4w,5w,
 public class IplMostWktsCSV {
     @CsvBindByName(column = "PLAYER", required = true)
-    public String player;
+    public String playerBowler;
 
     @CsvBindByName(column = "SR", required = true)
     public float strikeRate;
@@ -27,7 +27,7 @@ public class IplMostWktsCSV {
     @Override
     public String toString() {
         return "IplMostWktsCSV{" +
-                "player='" + player + '\'' +
+                "player='" + playerBowler + '\'' +
                 ", strikeRate=" + strikeRate +
                 ", economicsRate=" + economicsRate +
                 ", average=" + average +

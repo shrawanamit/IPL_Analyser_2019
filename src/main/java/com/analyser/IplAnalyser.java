@@ -6,23 +6,21 @@ import java.util.stream.Collectors;
 
 public class IplAnalyser {
 
-
-
-    public enum IPL{RUNS,WICKET};
+    public enum IPL{RUNS,WICKET,BATTING_BOWLING};
 
     List<IplRunsWktsDAO> iplRunsWiktsList;
     public IplAnalyser() {
         this.iplRunsWiktsList = new ArrayList<>();
     }
 
-    public int loadIplFactsSheetData(IPL ipl , String csvFilePath) throws IplAnalyserException{
+    public int loadIplFactsSheetData(IPL ipl , String... csvFilePath) throws IplAnalyserException{
         iplRunsWiktsList=IplAdapterFactory.getIplData(ipl,csvFilePath);
         return iplRunsWiktsList.size();
     }
 
 
     public String loadSortedOnBattingAverage() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> averageComparator =Comparator.comparing(census -> census.average);
+        Comparator<IplRunsWktsDAO> averageComparator =Comparator.comparing(IPL -> IPL.batsmanAverage);
         return sort(averageComparator);
     }
 
@@ -65,7 +63,7 @@ public class IplAnalyser {
     }
 
     public String loadBolingAverageOfPlayerIplWktsData() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> bolingAvgComparator =Comparator.comparing(IPL -> IPL.average);
+        Comparator<IplRunsWktsDAO> bolingAvgComparator =Comparator.comparing(IPL -> IPL. bowlerAverage);
         return sort(bolingAvgComparator);
     }
 
@@ -89,17 +87,13 @@ public class IplAnalyser {
         return sort(strikngRate4WComparator);
     }
 
-    public String loadBestAvgAndWkts() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> bestRunsComparator =Comparator.comparing(IPL -> IPL.average);
-        return sort(bestRunsComparator);
+    public String getBestSortedOnRunsAndWicketData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> avgComparator =Comparator.comparing(IPL -> (IPL.batsmanAverage+IPL.bowlerAverage));
+        return sort(avgComparator);
+    }
+    public String getAllRounderPlayerSortedOnRunsAndWicketData() throws IplAnalyserException {
+        Comparator<IplRunsWktsDAO> avgComparator =Comparator.comparing(IPL -> IPL.batsmanAverage);
+        return sort(avgComparator);
+    }
 
-    }
-    public String loadBestAvgWkts() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> bestAvgBowlerComparator =Comparator.comparing(IPL -> IPL.average);
-        return sort(bestAvgBowlerComparator);
-    }
-    public String loadBestRuns() throws IplAnalyserException {
-        Comparator<IplRunsWktsDAO> bestAvgBowlerComparator =Comparator.comparing(IPL -> IPL.runs);
-        return sort(bestAvgBowlerComparator);
-    }
 }

@@ -4,7 +4,7 @@ public class IplMostRunsCSV {
    // PLAYER,Mat,Inns,NO,Runs,HS,Avg,BF,SR,100,50,4s,6s
 
     @CsvBindByName(column = "PLAYER", required = true)
-    public String player;
+    public String playerBatsman;
 
     @CsvBindByName(column = "Runs", required = true)
     public int runs;
@@ -24,10 +24,11 @@ public class IplMostRunsCSV {
     @CsvBindByName(column = "4s", required = true)
     public int noOfFour;
 
+
     @Override
     public String toString() {
         return "IplMostRunsCSV{" +
-                "player='" + player + '\'' +
+                "player='" + playerBatsman + '\'' +
                 ", runs=" + runs +
                 ", highestStrike=" + highestStrike +
                 ", average=" + average +
