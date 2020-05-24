@@ -7,40 +7,28 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class IPlLoader {
+public abstract  class IplAddapter {
+    private  List iplLoaderData = new ArrayList();
 
-    private List iplLoaderList = new ArrayList();
+    abstract List<IplRunsWktsDAO> loadIPLData(String csvFilePath) throws IplAnalyserException ;
 
-    public List<IplRunsWktsDAO> loadIPLData(IplAnalyser.IPL ipl, String csvFilePath) throws IplAnalyserException {
-        if(ipl.equals(IplAnalyser.IPL.RUNS)) {
-            return this.loadIPLData(csvFilePath, IplMostRunsCSV.class);
-        }else if(ipl.equals(IplAnalyser.IPL.WICKET)) {
-            return this.loadIPLData(csvFilePath, IplMostWktsCSV.class);
-        }else{
-            throw new IplAnalyserException("Incorect Input",IplAnalyserException.ExceptionType.INVALID_INPUT);
-        }
-    }
-
-    private  <E> List<IplRunsWktsDAO> loadIPLData(String csvFilePath, Class<E> IPLCSVClass) throws IplAnalyserException {
-
+    public   <E> List<IplRunsWktsDAO> loadIPLData( Class<E> IPLCSVClass,String csvFilePath) throws IplAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
             if (IPLCSVClass.getName().equals("com.analyser.IplMostRunsCSV")) {
                 Iterator<IplMostRunsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostRunsCSV.class);
                 while (csvFileIterator.hasNext()) {
-                    this.iplLoaderList.add(new IplRunsWktsDAO( csvFileIterator.next()));
+                    this.iplLoaderData.add(new IplRunsWktsDAO( csvFileIterator.next()));
                 }
             } else if (IPLCSVClass.getName().equals("com.analyser.IplMostWktsCSV")) {
                 Iterator<IplMostWktsCSV> csvFileIterator = csvBuilder.getCSVFileIterator(reader,IplMostWktsCSV.class);
                 while (csvFileIterator.hasNext()) {
-                    this.iplLoaderList.add(new IplRunsWktsDAO(csvFileIterator.next()));
+                    this.iplLoaderData.add(new IplRunsWktsDAO(csvFileIterator.next()));
                 }
             }
-            return iplLoaderList;
+            return iplLoaderData;
         } catch (IOException | CSVBuilderException | IplAnalyserException e) {
             throw new IplAnalyserException(e.getMessage(), IplAnalyserException.ExceptionType.IPL_FILE_PROBLEM);
         }
     }
-
-
 }
