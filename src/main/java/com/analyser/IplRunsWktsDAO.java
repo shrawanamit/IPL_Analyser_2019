@@ -1,37 +1,37 @@
 package com.analyser;
 
 public class IplRunsWktsDAO {
-    public String playerBatsman;
-    public String playerBowler;
+    public String player;
     public int highestStrike;
-    public float batsmanAverage;
-    public float bowlerAverage;
+    public float average;
     public int runs;
     public float strikeRate;
     public int noOfSix;
     public int noOfFour;
     public float economicsRate;
-    public int wikets;
+    public int wickets;
     public int fourWikets;
+    public int fiveWikets;
 
 
     public IplRunsWktsDAO(IplMostRunsCSV iplMostRunsCSV) {
-         playerBatsman = iplMostRunsCSV.playerBatsman;
+         player = iplMostRunsCSV.player;
          runs = iplMostRunsCSV.runs;
          highestStrike = iplMostRunsCSV.highestStrike;
-         batsmanAverage =iplMostRunsCSV. average;
+         average =iplMostRunsCSV. average;
          strikeRate=iplMostRunsCSV.strikeRate;
          noOfSix=iplMostRunsCSV.noOfSix;
          noOfFour=iplMostRunsCSV.noOfFour;
     }
     public IplRunsWktsDAO(IplMostWktsCSV iplMostWktsCSV) {
-        playerBowler = iplMostWktsCSV.playerBowler;
+        player = iplMostWktsCSV.player;
         economicsRate = iplMostWktsCSV.economicsRate;
         strikeRate = iplMostWktsCSV.strikeRate;
-        bowlerAverage =iplMostWktsCSV. average;
+        average =iplMostWktsCSV. average;
         runs = iplMostWktsCSV.runs;
         fourWikets= iplMostWktsCSV.fourWikets;
-        wikets= iplMostWktsCSV.wikets;
+        fiveWikets= iplMostWktsCSV.fiveWikets;
+        wickets = iplMostWktsCSV.wikets;
 
     }
 }
