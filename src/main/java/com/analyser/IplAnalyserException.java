@@ -1,5 +1,4 @@
 package com.analyser;
-
 public class IplAnalyserException extends Throwable{
 
     public enum ExceptionType {
